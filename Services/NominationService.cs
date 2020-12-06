@@ -15,8 +15,8 @@ namespace my_nomination_api.Services
 
         public NominationService(IMyNominationDatabaseSettings settings)
         {
-            var client = new MongoClient(System.Environment.GetEnvironmentVariable("ConnectionString") ?? settings.ConnectionString);
-            var database = client.GetDatabase(System.Environment.GetEnvironmentVariable("DatabaseName") ?? settings.DatabaseName);
+            var client = new MongoClient(Environment.GetEnvironmentVariable("ConnectionString") ?? settings.ConnectionString);
+            var database = client.GetDatabase(Environment.GetEnvironmentVariable("DatabaseName") ?? settings.DatabaseName);
 
             _nominationProgram = database.GetCollection<NominationProgram>(System.Environment.GetEnvironmentVariable("ProgramCollectionName") ?? settings.ProgramCollectionName);
             _nominations = database.GetCollection<Nominations>(System.Environment.GetEnvironmentVariable("NominationsCollectionName") ?? settings.NominationsCollectionName);
@@ -27,7 +27,10 @@ namespace my_nomination_api.Services
           _nominations.Find(book => true).ToList();
 
         public List<Nominations> GetProgramNominations(string programId) =>
-            _nominations.Find<Nominations>(Nominations => Nominations.ProgrammId == programId).ToList();
+            _nominations.Find<Nominations>(Nominations => Nominations.ProgramId == programId).ToList();
+
+        public Nominations GetNominationDetails(string programId, string EnterpriseId) =>
+          _nominations.Find<Nominations>(Nominations => Nominations.ProgramId == programId && Nominations.EnterpriseId == EnterpriseId).FirstOrDefault();
 
         public Nominations CreateNominations(Nominations nominations)
         {

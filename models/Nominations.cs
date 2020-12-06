@@ -50,6 +50,6 @@ namespace my_nomination_api.models
         public string SecondarySkill { get; set; }
 
         [BsonElement("programId")]
-        public string ProgrammId { get; set; }
+        public string ProgramId { get; set; }
     }
 }

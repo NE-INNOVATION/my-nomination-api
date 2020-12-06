@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace my_nomination_api.models
@@ -14,15 +15,18 @@ namespace my_nomination_api.models
         public string Id { get; set; }
 
         [BsonElement("programId")]
-        public Int64 ProgramId { get; set; }
+        public string ProgramId { get; set; }
+
+        [BsonElement("name")]
+        public string Name { get; set; }
 
         [BsonElement("description")]
         public string Description { get; set; }
 
-        [BsonElement("startdate")]
+        [BsonElement("startDate")]
         public DateTime StartDate { get; set; }
 
-        [BsonElement("enddate")]
+        [BsonElement("endDate")]
         public DateTime EndDate { get; set; }
 
         [BsonElement("nominationStartDate")]

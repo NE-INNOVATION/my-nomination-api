@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,17 +42,19 @@ namespace my_nomination_api
 
             services.AddTransient<NominationService>();
 
-            services.AddCors(options =>
+            services.AddControllers().AddJsonOptions(opt =>
             {
-                options.AddPolicy("Test",
-                    builder =>
-                    {
-                        builder.WithOrigins("*")
-                               .AllowAnyHeader()
-                               .AllowAnyOrigin()
-                               .WithMethods("PUT", "DELETE", "GET", "OPTIONS");
-                    });
+                opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +70,8 @@ namespace my_nomination_api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("MyPolicy");
 
             app.UseEndpoints(endpoints =>
             {

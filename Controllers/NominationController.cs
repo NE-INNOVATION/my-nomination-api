@@ -18,13 +18,29 @@ namespace my_nomination_api.Controllers
             _nominationService = nominationService;
         }
 
-        public List<Nominations> GetNominations(string programmId)
+        [HttpGet]
+        [Route("GetNominations")]
+        public List<Nominations> GetNominations([FromQuery]string programId)
         {
-            return _nominationService.GetProgramNominations(programmId);
+            return _nominationService.GetProgramNominations(programId);
         }
 
-        public Nominations CreateNominations(Nominations nominations)
+        [HttpGet]
+        [Route("GetNominationDetails")]
+        public Nominations GetNominationDetails([FromQuery] string programId, [FromQuery] string EnterpriseId)
         {
+            return _nominationService.GetNominationDetails(programId, EnterpriseId);
+        }
+
+        [Route("CreateNominations")]
+        public ActionResult<Nominations> CreateNominations([FromBody] Nominations nominations)
+        {
+            var nomination = _nominationService.GetProgramNominations(nominations.ProgramId).FirstOrDefault(x=> x.EnterpriseId == nominations.EnterpriseId);
+            if(nomination != null)
+            {
+                return BadRequest();
+            }
+
             return _nominationService.CreateNominations(nominations);
         }
               
