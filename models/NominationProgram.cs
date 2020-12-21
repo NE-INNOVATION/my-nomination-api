@@ -24,22 +24,22 @@ namespace my_nomination_api.models
         public string Description { get; set; }
 
         [BsonElement("startDate")]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [BsonElement("endDate")]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         [BsonElement("nominationStartDate")]
-        public DateTime NominationStartDate { get; set; }
+        public string NominationStartDate { get; set; }
 
         [BsonElement("nominationEndDate")]
-        public DateTime NominationEndDate { get; set; }
+        public string NominationEndDate { get; set; }
 
         [BsonElement("courseAgenda")]
         public string CourseAgenda { get; set; }
 
         [BsonElement("banner")]
-        public byte[] Banner { get; set; }
+        public string Banner { get; set; }
 
         [BsonElement("userId")]
         public string UserId { get; set; }

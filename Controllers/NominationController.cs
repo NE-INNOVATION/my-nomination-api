@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using my_nomination_api.models;
 using my_nomination_api.Services;
@@ -9,6 +10,7 @@ namespace my_nomination_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
     public class NominationController : ControllerBase
     {
         private readonly NominationService _nominationService;

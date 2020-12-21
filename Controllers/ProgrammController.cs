@@ -35,6 +35,13 @@ namespace my_nomination_api.Controllers
         }
 
         [HttpGet]
+        [Route("GetProgramsById")]
+        public NominationProgram GetProgramsById([FromQuery] string programId)
+        {
+           return _nominationService.GetProgramById(programId);
+        }
+
+        [HttpGet]
         [Route("GetAllPrograms")]
         public List<NominationProgram> GetAllPrograms()
         {
@@ -63,7 +70,8 @@ namespace my_nomination_api.Controllers
         }
 
         [HttpPost]
-        public NominationProgram CreateNominations(NominationProgram nominationProgram)
+        [Route("CreateProgram")]
+        public NominationProgram CreateProgram(NominationProgram nominationProgram)
         {
             return _nominationService.CreateNominationProgram(nominationProgram);
         }

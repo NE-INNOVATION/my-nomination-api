@@ -38,8 +38,12 @@ namespace my_nomination_api.Services
             return nominations;
         }
 
+        public NominationProgram GetProgramById(string programId) =>
+            _nominationProgram.Find<NominationProgram>(Nominations => Nominations.ProgramId == programId).FirstOrDefault();
+
         public NominationProgram CreateNominationProgram(NominationProgram nominationProgram)
         {
+            nominationProgram.ProgramId = "MN" + GenerateRandomNo();
             _nominationProgram.InsertOne(nominationProgram);
             return nominationProgram;
         }
@@ -52,5 +56,12 @@ namespace my_nomination_api.Services
 
         public User GetUser(string userId) =>
        _users.Find<User>(User => User.Userid == userId).FirstOrDefault();
+
+        private Random _random = new Random();
+
+        public string GenerateRandomNo()
+        {
+            return _random.Next(0, 9999).ToString("D4");
+        }
     }
 }
