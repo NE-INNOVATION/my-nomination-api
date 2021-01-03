@@ -40,7 +40,7 @@ namespace my_nomination_api.Services
 
         public Nominations UpdateNominations(Nominations nominations)
         {
-            _nominations.ReplaceOneAsync(b => b.ProgramId == nominations.ProgramId, nominations);
+            _nominations.ReplaceOneAsync(b => b.ProgramId == nominations.ProgramId && b.EnterpriseId == nominations.EnterpriseId, nominations);
             return nominations;
         }
 
