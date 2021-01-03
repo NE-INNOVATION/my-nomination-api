@@ -51,5 +51,8 @@ namespace my_nomination_api.models
 
         [BsonElement("programId")]
         public string ProgramId { get; set; }
+
+        [BsonElement("approved")]
+        public bool Approved { get; set; }
     }
 }

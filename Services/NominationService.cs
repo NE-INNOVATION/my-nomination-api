@@ -38,6 +38,12 @@ namespace my_nomination_api.Services
             return nominations;
         }
 
+        public Nominations UpdateNominations(Nominations nominations)
+        {
+            _nominations.ReplaceOneAsync(b => b.ProgramId == nominations.ProgramId, nominations);
+            return nominations;
+        }
+
         public NominationProgram GetProgramById(string programId) =>
             _nominationProgram.Find<NominationProgram>(Nominations => Nominations.ProgramId == programId).FirstOrDefault();
 
@@ -55,7 +61,7 @@ namespace my_nomination_api.Services
         _nominationProgram.Find<NominationProgram>(NominationProgram => NominationProgram.UserId == userId).ToList();
 
         public User GetUser(string userId) =>
-       _users.Find<User>(User => User.Userid == userId).FirstOrDefault();
+       _users.Find<User>(User => User.UserId == userId).FirstOrDefault();
 
         private Random _random = new Random();
 

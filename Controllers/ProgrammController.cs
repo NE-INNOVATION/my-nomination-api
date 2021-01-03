@@ -31,7 +31,7 @@ namespace my_nomination_api.Controllers
                 return _nominationService.GetAllProgram();
             }
 
-            return _nominationService.GetPrograms(user.Userid);
+            return _nominationService.GetPrograms(user.UserId);
         }
 
         [HttpGet]
@@ -57,7 +57,7 @@ namespace my_nomination_api.Controllers
         [Route("ValidateUser")]
         public User ValidateUser(User user)
         {
-            var getUser = _nominationService.GetUser(user.Userid);
+            var getUser = _nominationService.GetUser(user.UserId);
             if (getUser != null)
             {
                 if(getUser.Password == user.Password)

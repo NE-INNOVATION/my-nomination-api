@@ -10,7 +10,7 @@ namespace my_nomination_api.models
         public string Id { get; set; }
 
         [BsonElement("userId")]
-        public string Userid { get; set; }
+        public string UserId { get; set; }
 
         [BsonElement("password")]
         public string Password { get; set; }

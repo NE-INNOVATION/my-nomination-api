@@ -45,6 +45,18 @@ namespace my_nomination_api.Controllers
 
             return _nominationService.CreateNominations(nominations);
         }
-              
+
+        [Route("UpdateNominations")]
+        public ActionResult<Nominations> UpdateNominations([FromBody] Nominations nominations)
+        {
+            var nomination = _nominationService.GetProgramNominations(nominations.ProgramId).FirstOrDefault(x => x.EnterpriseId == nominations.EnterpriseId);
+            if (nomination == null)
+            {
+                return BadRequest();
+            }
+
+            return _nominationService.UpdateNominations(nominations);
+        }
+
     }
 }
