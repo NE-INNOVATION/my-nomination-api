@@ -54,6 +54,12 @@ namespace my_nomination_api.Services
             return nominationProgram;
         }
 
+        public NominationProgram UpdateNominationProgram(NominationProgram nominationProgram)
+        {
+             _nominationProgram.ReplaceOneAsync(b => b.ProgramId == nominationProgram.ProgramId, nominationProgram);
+            return nominationProgram;
+        }
+
         public List<NominationProgram> GetAllProgram() =>
         _nominationProgram.Find(nominationProgram => true).ToList();
 

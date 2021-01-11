@@ -73,7 +73,16 @@ namespace my_nomination_api.Controllers
         [Route("CreateProgram")]
         public NominationProgram CreateProgram(NominationProgram nominationProgram)
         {
-            return _nominationService.CreateNominationProgram(nominationProgram);
+            var program = _nominationService.GetProgramById(nominationProgram.ProgramId);
+            if (string.IsNullOrEmpty(nominationProgram.ProgramId) && program == null)
+            {
+                return _nominationService.CreateNominationProgram(nominationProgram);
+            }
+
+            nominationProgram.Id = program.Id;
+            return _nominationService.UpdateNominationProgram(nominationProgram);
+
         }
+               
     }
 }
