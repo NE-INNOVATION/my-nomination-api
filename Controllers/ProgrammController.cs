@@ -34,6 +34,13 @@ namespace my_nomination_api.Controllers
             return _nominationService.GetPrograms(user.UserId);
         }
 
+        [HttpPost]
+        [Route("GetProgramsByUserId")]
+        public List<NominationProgram> GetProgramsByUserId(User user)
+        {
+            return _nominationService.GetPrograms(user.UserId);
+        }
+
         [HttpGet]
         [Route("GetProgramsById")]
         public NominationProgram GetProgramsById([FromQuery] string programId)
