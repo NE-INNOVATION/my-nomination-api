@@ -25,20 +25,25 @@ namespace my_nomination_api.Controllers
         [Route("GetPrograms")]
         public List<NominationProgram> GetPrograms(User user)
         {
-            if(user.Role.ToLower() == "admin")
+            if(user.Role.ToLower() == "admin" || user.Role.ToLower() == "view")
             {
-                var data = _nominationService.GetAllProgram();
-                return _nominationService.GetAllProgram();
+                return _nominationService.GetPrograms(user.UserId);
             }
 
-            return _nominationService.GetPrograms(user.UserId);
+            return new List<NominationProgram>();
+            
         }
 
         [HttpPost]
         [Route("GetProgramsByUserId")]
         public List<NominationProgram> GetProgramsByUserId(User user)
         {
-            return _nominationService.GetPrograms(user.UserId);
+            if (user.Role.ToLower() == "admin")
+            {
+                return _nominationService.GetPrograms(user.UserId);
+            }
+            return new List<NominationProgram>();
+          
         }
 
         [HttpGet]
