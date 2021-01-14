@@ -16,9 +16,6 @@ namespace my_nomination_api.models
         [BsonElement("name")]
         public string Name { get; set; }
 
-        [BsonElement("gender")]
-        public string Gender { get; set; }
-
         [BsonElement("enterpriseId")]
         public string EnterpriseId { get; set; }
 
@@ -31,8 +28,8 @@ namespace my_nomination_api.models
         [BsonElement("project")]
         public string Project { get; set; }
 
-        [BsonElement("ia_ig")]
-        public string Ia_Ig { get; set; }
+        [BsonElement("bussinessGroup")]
+        public string BussinessGroup { get; set; }
 
         [BsonElement("clientName")]
         public string ClientName { get; set; }
@@ -54,5 +51,8 @@ namespace my_nomination_api.models
 
         [BsonElement("approved")]
         public bool Approved { get; set; }
+
+        [BsonElement("approver")]
+        public string Approver { get; set; }
     }
 }
