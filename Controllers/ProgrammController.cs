@@ -29,9 +29,20 @@ namespace my_nomination_api.Controllers
             {
                 return _nominationService.GetPrograms(user.UserId);
             }
+            else if(user.Role.ToLower() == "superadmin")
+            {
+                return _nominationService.GetAllProgram();
+            }
 
             return new List<NominationProgram>();
             
+        }
+
+        [HttpGet]
+        [Route("GetActivePrograms")]
+        public List<NominationProgram> GetActivePrograms()
+        {
+            return _nominationService.GetAllActiveProgram();
         }
 
         [HttpPost]
@@ -42,6 +53,11 @@ namespace my_nomination_api.Controllers
             {
                 return _nominationService.GetPrograms(user.UserId);
             }
+            else if (user.Role.ToLower() == "superadmin")
+            {
+                return _nominationService.GetAllProgram();
+            }
+
             return new List<NominationProgram>();
           
         }

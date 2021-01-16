@@ -2,6 +2,7 @@
 using my_nomination_api.models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,6 +63,31 @@ namespace my_nomination_api.Services
 
         public List<NominationProgram> GetAllProgram() =>
         _nominationProgram.Find(nominationProgram => true).ToList();
+
+        public List<NominationProgram> GetAllActiveProgram()
+        {
+            var cultureInfo = new CultureInfo("en-US");
+            var allProgram = GetAllProgram();
+            var activeProgram = new List<NominationProgram>();
+
+            foreach (var program in allProgram)
+            {
+
+                int year = Convert.ToInt32(program.NominationEndDate.Substring(0, 4));
+                int month = Convert.ToInt32(program.NominationEndDate.Substring(5, 2));
+                int day = Convert.ToInt32(program.NominationEndDate.Substring(8, 2));
+
+                var nominationEndDate = new DateTime(year, month, day);
+
+                if (nominationEndDate >= DateTime.Today.Date)
+                {
+                    activeProgram.Add(program);
+                }
+            }
+
+            return activeProgram;
+        }
+     
 
         public List<NominationProgram> GetPrograms(string userId) =>
         _nominationProgram.Find<NominationProgram>(NominationProgram => NominationProgram.UserId == userId).ToList();
