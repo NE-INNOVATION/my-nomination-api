@@ -79,7 +79,7 @@ namespace my_nomination_api.Services
 
                 var nominationEndDate = new DateTime(year, month, day);
 
-                if (nominationEndDate >= DateTime.Today.Date)
+                if (nominationEndDate >= DateTime.Today.Date && program.IsPublished && program.Status == 1)
                 {
                     activeProgram.Add(program);
                 }

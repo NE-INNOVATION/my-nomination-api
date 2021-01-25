@@ -111,6 +111,22 @@ namespace my_nomination_api.Controllers
             return _nominationService.UpdateNominationProgram(nominationProgram);
 
         }
-               
+
+
+        [HttpPost]
+        [Route("UpdateProgram")]
+        public ActionResult<NominationProgram> UpdateProgram(NominationProgram nominationProgram)
+        {
+            var program = _nominationService.GetProgramById(nominationProgram.ProgramId);
+            if (string.IsNullOrEmpty(nominationProgram.ProgramId) && program == null)
+            {
+                return BadRequest();
+            }
+
+            nominationProgram.Id = program.Id;
+            return _nominationService.UpdateNominationProgram(nominationProgram);
+
+        }
+
     }
 }

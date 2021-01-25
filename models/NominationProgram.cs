@@ -43,5 +43,11 @@ namespace my_nomination_api.models
 
         [BsonElement("userId")]
         public string UserId { get; set; }
+
+        [BsonElement("isPublished")]
+        public bool IsPublished { get; set; }
+
+        [BsonElement("status")]
+        public int Status { get; set; }
     }
 }
