@@ -45,6 +45,12 @@ namespace my_nomination_api.Services
             return nominations;
         }
 
+        public Nominations DeleteNominations(Nominations nominations)
+        {
+            _nominations.DeleteOneAsync(b => b.ProgramId == nominations.ProgramId && b.EnterpriseId == nominations.EnterpriseId);
+            return nominations;
+        }
+
         public NominationProgram GetProgramById(string programId) =>
             _nominationProgram.Find<NominationProgram>(Nominations => Nominations.ProgramId == programId).FirstOrDefault();
 

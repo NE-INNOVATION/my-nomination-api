@@ -58,5 +58,17 @@ namespace my_nomination_api.Controllers
             return _nominationService.UpdateNominations(nominations);
         }
 
+        [Route("DeleteNominations")]
+        public ActionResult<Nominations> DeleteNominations([FromBody] Nominations nominations)
+        {
+            var nomination = _nominationService.GetProgramNominations(nominations.ProgramId).FirstOrDefault(x => x.EnterpriseId == nominations.EnterpriseId);
+            if (nomination == null)
+            {
+                return BadRequest();
+            }
+
+            return _nominationService.DeleteNominations(nominations);
+        }
+
     }
 }
