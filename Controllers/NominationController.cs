@@ -22,6 +22,11 @@ namespace my_nomination_api.Controllers
         {
             return _nominationService.GetProgramNominations(programmId);
         }
+        
+        public string Health()
+        {
+            return "Success";
+        }
 
         public Nominations CreateNominations(Nominations nominations)
         {
