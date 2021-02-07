@@ -57,7 +57,7 @@ jobs:
         cmd: |
           'version'
           'project my-nomination'
-          'tag --source=docker quay.io/neinnovationorg/my-nomination-api:${{ steps.extract_branch.outputs.branch }} my-nomination/my-nomination-api:${{ steps.extract_branch.outputs.branch }}'
+          'tag --source=docker quay.io/neinnovationorg/my-nomination-api:${{ steps.extract_branch.outputs.branch }} my-nomination-stage/my-nomination-api:${{ steps.extract_branch.outputs.branch }}'
     - name: Scan Image
       uses: Azure/container-scan@v0
       continue-on-error: true
