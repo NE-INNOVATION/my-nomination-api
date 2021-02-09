@@ -21,6 +21,13 @@ namespace my_nomination_api.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllNominations")]
+        public List<Nominations> GetAllNominations()
+        {
+            return _nominationService.GetAllNominations();
+        }
+
+        [HttpGet]
         [Route("GetNominations")]
         public List<Nominations> GetNominations([FromQuery]string programId)
         {

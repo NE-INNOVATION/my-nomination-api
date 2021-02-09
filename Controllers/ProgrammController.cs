@@ -76,6 +76,13 @@ namespace my_nomination_api.Controllers
             return _nominationService.GetAllProgram();
         }
 
+        [HttpGet]
+        [Route("GetConfigurationForUi")]
+        public List<NominationProgram> GetConfigurationForUi()
+        {
+            return _nominationService.GetAllProgram();
+        }
+
         public User GetUser(string userId)
         {
             return _nominationService.GetUser(userId);

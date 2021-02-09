@@ -70,6 +70,9 @@ namespace my_nomination_api.Services
         public List<NominationProgram> GetAllProgram() =>
         _nominationProgram.Find(nominationProgram => true).ToList();
 
+        public List<Nominations> GetAllNomintion() =>
+        _nominations.Find(nominationProgram => true).ToList();
+
         public List<NominationProgram> GetAllActiveProgram()
         {
             var cultureInfo = new CultureInfo("en-US");
