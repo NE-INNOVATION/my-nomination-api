@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using my_nomination_api.models;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -30,17 +28,6 @@ public class PingController : Controller
             {
                 return Ok();
             }
-
-            var apiKey = "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";
-            var client1 = new SendGridClient(apiKey);
-            var from = new EmailAddress("g.ravindra.bhogle@accenture.com");
-            var subject = "Sending with SendGrid is Fun";
-            var to = new EmailAddress("ganesh.bhogle88@gmail.com");
-            var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = "and easy to do anywhere, even with C#";
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var response = await client1.SendEmailAsync(msg);
-
             return BadRequest();
 
         }
