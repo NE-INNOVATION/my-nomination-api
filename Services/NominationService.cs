@@ -12,6 +12,7 @@ namespace my_nomination_api.Services
     {
         private readonly IMongoCollection<Nominations> _nominations;
         private readonly IMongoCollection<NominationProgram> _nominationProgram;
+        private readonly IMongoCollection<ProgramCategory> _categories;
         private readonly IMongoCollection<User> _users;
 
         public NominationService(IMyNominationDatabaseSettings settings)
@@ -22,6 +23,7 @@ namespace my_nomination_api.Services
             _nominationProgram = database.GetCollection<NominationProgram>(System.Environment.GetEnvironmentVariable("ProgramCollectionName") ?? settings.ProgramCollectionName);
             _nominations = database.GetCollection<Nominations>(System.Environment.GetEnvironmentVariable("NominationsCollectionName") ?? settings.NominationsCollectionName);
             _users = database.GetCollection<User>(System.Environment.GetEnvironmentVariable("UsersCollectionName") ?? settings.UsersCollectionName);
+            _categories = database.GetCollection<ProgramCategory>(System.Environment.GetEnvironmentVariable("ProgramCategoryCollectionName") ?? settings.ProgramCategoryCollectionName);
         }
 
         public List<Nominations> GetAllNominations() =>
@@ -43,6 +45,11 @@ namespace my_nomination_api.Services
         {
             _nominations.ReplaceOneAsync(b => b.ProgramId == nominations.ProgramId && b.EnterpriseId == nominations.EnterpriseId, nominations);
             return nominations;
+        }
+
+        public bool MoveNominations(Nominations nominations)
+        {
+           return _nominations.ReplaceOneAsync(b => b.EnterpriseId == nominations.EnterpriseId, nominations).IsCompleted;
         }
 
         public Nominations DeleteNominations(Nominations nominations)
@@ -69,6 +76,16 @@ namespace my_nomination_api.Services
 
         public List<NominationProgram> GetAllProgram() =>
         _nominationProgram.Find(nominationProgram => true).ToList();
+
+        public List<ProgramCategory> GetAllProgramCategories() =>
+      _categories.Find(category => true).ToList();
+
+        public List<NominationProgram> GetProgramsForCategories(string categoryId)
+        {
+            var activePrograms = GetAllActiveProgram();
+            return activePrograms.Where(activePrograms => activePrograms.categoryId == categoryId).ToList();
+        }
+          
 
         public List<Nominations> GetAllNomintion() =>
         _nominations.Find(nominationProgram => true).ToList();

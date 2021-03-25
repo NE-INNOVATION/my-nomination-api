@@ -77,6 +77,20 @@ namespace my_nomination_api.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllProgramsCategories")]
+        public List<ProgramCategory> GetAllProgramsCategories()
+        {
+            return _nominationService.GetAllProgramCategories();
+        }
+
+        [HttpGet]
+        [Route("GetProgramsForCategories")]
+        public List<NominationProgram> GetProgramsForCategories([FromQuery] string categoryId)
+        {
+            return _nominationService.GetProgramsForCategories(categoryId);
+        }
+
+        [HttpGet]
         [Route("GetConfigurationForUi")]
         public List<NominationProgram> GetConfigurationForUi()
         {

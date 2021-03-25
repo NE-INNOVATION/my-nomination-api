@@ -49,5 +49,25 @@ namespace my_nomination_api.models
 
         [BsonElement("status")]
         public int Status { get; set; }
+
+        [BsonElement("categoryId")]
+        public string categoryId { get; set; }
+
+        [BsonElement("category")]
+        public string category { get; set; }
     }
+
+    public class ProgramCategory
+    {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        [BsonElement("categoryId")]
+        public string CategoryId { get; set; }
+
+        [BsonElement("category")]
+        public string Category { get; set; }
+    }
+
 }

@@ -65,6 +65,21 @@ namespace my_nomination_api.Controllers
             return _nominationService.UpdateNominations(nominations);
         }
 
+        [Route("MoveNominations")]
+        public ActionResult<Boolean> MoveNominations([FromBody] MoveNominations moveNominations)
+        {
+            var isMoved = false;
+
+            foreach (var nomination in moveNominations.Nominations)
+            {
+                nomination.ProgramId = moveNominations.Program.ProgramId;
+                isMoved = _nominationService.MoveNominations(nomination);
+            }
+
+            return isMoved;
+
+        }
+
         [Route("DeleteNominations")]
         public ActionResult<Nominations> DeleteNominations([FromBody] Nominations nominations)
         {

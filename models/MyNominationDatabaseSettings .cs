@@ -10,6 +10,8 @@ namespace my_nomination_api.models
         public string ProgramCollectionName { get; set; }
         public string UsersCollectionName { get; set; }
         public string NominationsCollectionName { get; set; }
+
+        public string ProgramCategoryCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
     }
@@ -21,6 +23,9 @@ namespace my_nomination_api.models
         string UsersCollectionName { get; set; }
 
         string NominationsCollectionName { get; set; }
+
+        string ProgramCategoryCollectionName { get; set; }
+
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }

@@ -55,4 +55,16 @@ namespace my_nomination_api.models
         [BsonElement("approver")]
         public string Approver { get; set; }
     }
+
+    public class MoveNominations
+    {
+        [BsonElement("categoryId")]
+        public string CategoryId { get; set; }
+
+        [BsonElement("nominations")]
+        public List<Nominations> Nominations { get; set; }
+
+        [BsonElement("program")]
+        public NominationProgram Program { get; set; }
+    }
 }
