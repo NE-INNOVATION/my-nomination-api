@@ -58,8 +58,11 @@ namespace my_nomination_api.Services
             return nominations;
         }
 
-        public NominationProgram GetProgramById(string programId) =>
-            _nominationProgram.Find<NominationProgram>(Nominations => Nominations.ProgramId == programId).FirstOrDefault();
+        public NominationProgram GetProgramById(string programId)
+        {
+           return _nominationProgram.Find<NominationProgram>(Nominations => Nominations.ProgramId == programId).FirstOrDefault();
+        }
+           
 
         public NominationProgram CreateNominationProgram(NominationProgram nominationProgram)
         {
@@ -76,6 +79,9 @@ namespace my_nomination_api.Services
 
         public List<NominationProgram> GetAllProgram() =>
         _nominationProgram.Find(nominationProgram => true).ToList();
+
+        public List<User> GetAllUsers() =>
+       _users.Find(users => true).ToList();
 
         public List<ProgramCategory> GetAllProgramCategories() =>
       _categories.Find(category => true).ToList();
@@ -115,8 +121,23 @@ namespace my_nomination_api.Services
         }
      
 
-        public List<NominationProgram> GetPrograms(string userId) =>
-        _nominationProgram.Find<NominationProgram>(NominationProgram => NominationProgram.UserId == userId).ToList();
+        public List<NominationProgram> GetPrograms(User userInput)
+        {
+            var user = _users.Find<User>(item => item.UserId == userInput.UserId).FirstOrDefault();
+            if(user.CategoryId == null || user.CategoryId.Count <= 0)
+            {
+                return _nominationProgram.Find<NominationProgram>(NominationProgram => NominationProgram.UserId == userInput.UserId).ToList();
+            }
+
+            var programsForCategory = new List<NominationProgram>();
+            foreach (var category in user.CategoryId)
+            {
+                List<NominationProgram> categoryPrograms = _nominationProgram.Find<NominationProgram>(NominationProgram => NominationProgram.categoryId == category).ToList();
+                programsForCategory.AddRange(categoryPrograms);
+            }
+            return programsForCategory;
+        }
+       
 
         public User GetUser(string userId) =>
        _users.Find<User>(User => User.UserId == userId).FirstOrDefault();

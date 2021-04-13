@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 namespace my_nomination_api.models
 {
@@ -17,5 +18,8 @@ namespace my_nomination_api.models
 
         [BsonElement("role")]
         public string Role { get; set; }
+
+        [BsonElement("categoryId")]
+        public List<string> CategoryId { get; set; }
     }
 }
