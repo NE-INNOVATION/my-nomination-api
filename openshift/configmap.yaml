@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  ConnectionString: mongodb://lrqi_db:lrqi_db_pwd@lrqidb-shard-00-00-wksjy.mongodb.net:27017,lrqidb-shard-00-01-wksjy.mongodb.net:27017,lrqidb-shard-00-02-wksjy.mongodb.net:27017/test?authSource=admin
+  DatabaseName: MyNomination
+kind: ConfigMap
+metadata:
+  name: nomination

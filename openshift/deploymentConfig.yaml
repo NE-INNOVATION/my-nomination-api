@@ -1,0 +1,48 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: nomination
+    app.kubernetes.io/component: nomination
+  name: nomination
+spec:
+  replicas: 1
+  selector:
+    deploymentconfig: nomination
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        deploymentconfig: nomination
+    spec:
+      containers:
+      - env:
+        - name: ConnectionString
+          valueFrom:
+            configMapKeyRef:
+              key: ConnectionString
+              name: nomination
+        - name: DatabaseName
+          valueFrom:
+            configMapKeyRef:
+              key: DatabaseName
+              name: nomination
+        image: quay.io/neinnovationorg/nomination:pcf-openshift
+        imagePullPolicy: IfNotPresent
+        name: nomination
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+      restartPolicy: Always
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - nomination
+      from:
+        kind: ImageStreamTag
+        name: nomination:pcf-openshift
+        namespace: nube-motus
+    type: ImageChange
+  - type: configChange
