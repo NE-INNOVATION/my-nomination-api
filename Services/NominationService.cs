@@ -83,8 +83,25 @@ namespace my_nomination_api.Services
         public List<User> GetAllUsers() =>
        _users.Find(users => true).ToList();
 
-        public List<ProgramCategory> GetAllProgramCategories() =>
-      _categories.Find(category => true).ToList();
+        public List<ProgramCategory> GetAllProgramCategories(User user)
+        {
+           var categories = _categories.Find(category => true).ToList();
+           var userInput = _users.Find<User>(item => item.UserId == user.UserId).FirstOrDefault();
+
+            var categoryOutput = new List<ProgramCategory>();
+
+            foreach (var category in categories)
+            {
+                if (userInput.CategoryId.Contains(category.CategoryId))
+                {
+                    categoryOutput.Add(category);
+                }
+            }
+
+            return categoryOutput;
+
+        }
+      
 
         public List<NominationProgram> GetProgramsForCategories(string categoryId)
         {
@@ -105,13 +122,13 @@ namespace my_nomination_api.Services
             foreach (var program in allProgram)
             {
 
-                int year = Convert.ToInt32(program.NominationEndDate.Substring(0, 4));
-                int month = Convert.ToInt32(program.NominationEndDate.Substring(5, 2));
-                int day = Convert.ToInt32(program.NominationEndDate.Substring(8, 2));
+                int year = Convert.ToInt32(program.StartDate.Substring(0, 4));
+                int month = Convert.ToInt32(program.StartDate.Substring(5, 2));
+                int day = Convert.ToInt32(program.StartDate.Substring(8, 2));
 
-                var nominationEndDate = new DateTime(year, month, day);
+                var programStartDate = new DateTime(year, month, day);
 
-                if (nominationEndDate >= DateTime.Today.Date && program.IsPublished && program.Status == 1)
+                if (programStartDate >= DateTime.Today.Date && program.IsPublished && program.Status == 1)
                 {
                     activeProgram.Add(program);
                 }

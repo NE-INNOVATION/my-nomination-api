@@ -83,11 +83,11 @@ namespace my_nomination_api.Controllers
             return _nominationService.GetAllUsers();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetAllProgramsCategories")]
-        public List<ProgramCategory> GetAllProgramsCategories()
+        public List<ProgramCategory> GetAllProgramsCategories(User user)
         {
-            return _nominationService.GetAllProgramCategories();
+            return _nominationService.GetAllProgramCategories(user);
         }
 
         [HttpGet]

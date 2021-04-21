@@ -1,10 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace my_nomination_api.models
 {
@@ -28,12 +23,6 @@ namespace my_nomination_api.models
 
         [BsonElement("endDate")]
         public string EndDate { get; set; }
-
-        [BsonElement("nominationStartDate")]
-        public string NominationStartDate { get; set; }
-
-        [BsonElement("nominationEndDate")]
-        public string NominationEndDate { get; set; }
 
         [BsonElement("courseAgenda")]
         public string CourseAgenda { get; set; }
