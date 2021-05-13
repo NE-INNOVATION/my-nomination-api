@@ -36,6 +36,9 @@ namespace my_nomination_api.models
         [BsonElement("isPublished")]
         public bool IsPublished { get; set; }
 
+        [BsonElement("isClosed")]
+        public bool IsClosed { get; set; }
+
         [BsonElement("status")]
         public int Status { get; set; }
 

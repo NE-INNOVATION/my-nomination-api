@@ -88,6 +88,11 @@ namespace my_nomination_api.Services
            var categories = _categories.Find(category => true).ToList();
            var userInput = _users.Find<User>(item => item.UserId == user.UserId).FirstOrDefault();
 
+            if(userInput.Role.ToLower() == "superadmin")
+            {
+                return categories;
+            }
+
             var categoryOutput = new List<ProgramCategory>();
 
             foreach (var category in categories)
@@ -128,7 +133,7 @@ namespace my_nomination_api.Services
 
                 var programStartDate = new DateTime(year, month, day);
 
-                if (programStartDate >= DateTime.Today.Date && program.IsPublished && program.Status == 1)
+                if (programStartDate >= DateTime.Today.Date && program.IsPublished && program.IsClosed == false && program.Status == 1)
                 {
                     activeProgram.Add(program);
                 }
