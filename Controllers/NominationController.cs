@@ -23,6 +23,7 @@ namespace my_nomination_api.Controllers
             return _nominationService.GetProgramNominations(programmId);
         }
         
+        [HttpGet("Health")] 
         public string Health()
         {
             return "Success";
