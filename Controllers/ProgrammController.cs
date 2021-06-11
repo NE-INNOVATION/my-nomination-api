@@ -45,6 +45,13 @@ namespace my_nomination_api.Controllers
             return _nominationService.GetAllActiveProgram();
         }
 
+        [HttpGet]
+        [Route("GetCompletedPrograms")]
+        public List<NominationProgram> GetCompletedPrograms()
+        {
+            return _nominationService.GetCompletedPrograms();
+        }
+
         [HttpPost]
         [Route("GetProgramsByUserId")]
         public List<NominationProgram> GetProgramsByUserId(User user)

@@ -141,7 +141,34 @@ namespace my_nomination_api.Services
 
             return activeProgram;
         }
-     
+
+        public List<NominationProgram> GetCompletedPrograms()
+        {
+            var cultureInfo = new CultureInfo("en-US");
+            var allProgram = GetAllProgram();
+            var completedPrograms = new List<NominationProgram>();
+
+            foreach (var program in allProgram)
+            {
+
+                int year = Convert.ToInt32(program.EndDate.Substring(0, 4));
+                int month = Convert.ToInt32(program.EndDate.Substring(5, 2));
+                int day = Convert.ToInt32(program.EndDate.Substring(8, 2));
+
+                var programEndDate = new DateTime(year, month, day);
+
+                if (programEndDate < DateTime.Today.Date 
+                    && program.IsPublished
+                    && program.IsClosed == false 
+                    && program.Status == 1)
+                {
+                    completedPrograms.Add(program);
+                }
+            }
+
+            return completedPrograms;
+        }
+
 
         public List<NominationProgram> GetPrograms(User userInput)
         {
