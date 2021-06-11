@@ -158,9 +158,7 @@ namespace my_nomination_api.Services
                 var programEndDate = new DateTime(year, month, day);
 
                 if (programEndDate < DateTime.Today.Date 
-                    && program.IsPublished
-                    && program.IsClosed == false 
-                    && program.Status == 1)
+                    && program.IsPublished)
                 {
                     completedPrograms.Add(program);
                 }
